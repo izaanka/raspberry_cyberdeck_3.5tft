@@ -175,3 +175,5 @@ cyberdeck-term restart
 | `evdev` | Raw keyboard input + exclusive grab |
 | `RPi.GPIO` | GPIO pin polling (kill-switch) |
 | `psutil` | System stats (CPU, RAM, disk, temp) |
+
+sudo systemctl status cyberdeck-term && sudo journalctl -u cyberdeck-term -n 30 --no-pager && ls -l /dev/spi*
