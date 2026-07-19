@@ -1,0 +1,27 @@
+[Unit]
+Description=Cyberdeck Framebuffer Terminal (GPIO LCD)
+Documentation=file:///opt/cyberdeck-term/README.md
+After=multi-user.target
+Wants=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/cyberdeck-term/cyberdeck-term.py
+Restart=on-failure
+RestartSec=3
+
+# Run as root so evdev grab and /dev/fb1 access work without udev rules
+User=root
+
+# Framebuffer display settings
+Environment=SDL_VIDEODRIVER=fbdev
+Environment=SDL_FBDEV=/dev/fb1
+Environment=SDL_NOMOUSE=1
+Environment=PYTHONUNBUFFERED=1
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=cyberdeck-term
+
+[Install]
+WantedBy=multi-user.target
